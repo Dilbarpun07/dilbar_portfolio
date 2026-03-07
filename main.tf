@@ -18,10 +18,16 @@ resource "aws_s3_bucket" "portfolio" {
 
 # Upload all website files (HTML, CSS, PDF, etc.)
 resource "aws_s3_object" "website_files" {
-  for_each = fileset("website", "**")
+  for_each = fileset("${path.module}/website", "**")
 
-  bucket       = aws_s3_bucket.portfolio.id
-  key          = each.value
-  source       = "website/${each.value}"
-  content_type = lookup(var.mime_types, regex("\\.[^.]+$", each.value), "text/plain")
+  bucket = aws_s3_bucket.portfolio.id
+  key    = each.value
+  source = "${path.module}/website/${each.value}"
+  etag   = filemd5("${path.module}/website/${each.value}")
+
+  content_type = lookup(
+    var.mime_types,
+    regex("\\.[^.]+$", each.value),
+    "application/octet-stream"
+  )
 }
