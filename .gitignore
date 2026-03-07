@@ -10,3 +10,5 @@ crash.log
 
 # Variables files (if they contain secrets)
 *.tfvars
+.terraform/
+.terraform.lock.hcl
