@@ -1,14 +1,12 @@
-# Local .terraform folder
-**/.terraform/*
+# Terraform working directory
+.terraform/
 
-# .tfstate files (these contain secrets, don't push them!)
+# Terraform state
 *.tfstate
 *.tfstate.*
 
 # Crash logs
 crash.log
 
-# Variables files (if they contain secrets)
+# Variable files that may contain secrets
 *.tfvars
-.terraform/
-.terraform.lock.hcl
