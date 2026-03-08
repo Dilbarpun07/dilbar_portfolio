@@ -1,4 +1,4 @@
-name: Deploy to AWS S3 using Terraform
+name: Terraform Check
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  terraform:
     runs-on: ubuntu-latest
     environment: aws
 
@@ -17,8 +17,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -26,23 +24,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
 
-      
-
-      - name: Invalidate CloudFront Cache
-        run: |
-          aws cloudfront create-invalidation \
-          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --paths "/*"
-
-
       - name: Terraform Init
-        working-directory: .
         run: terraform init
 
-      - name: Terraform Plan
-        working-directory: .
-        run: terraform plan
+      - name: Terraform Validate
+        run: terraform validate
 
-      - name: Terraform Apply
-        working-directory: .
-        run: terraform apply -auto-approve
+      - name: Terraform Plan
+        run: terraform plan
