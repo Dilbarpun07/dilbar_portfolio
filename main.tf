@@ -11,7 +11,7 @@ provider "aws" {
   region = var.region
 }
 
-# Use your existing S3 bucket
+# Manage the portfolio S3 bucket with Terraform
 resource "aws_s3_bucket" "portfolio" {
   bucket = var.bucket_name
 }
