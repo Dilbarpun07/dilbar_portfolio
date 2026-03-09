@@ -53,7 +53,7 @@ The automated workflow performs the following steps:
 ```
            ┌───────────────────┐
            │   S3 State Bucket │
-           │ dilbarpun-tf-state│
+           │ *bucket*-tf-state│
            │                   │
            │ terraform.tfstate │
            └─────────▲─────────┘
