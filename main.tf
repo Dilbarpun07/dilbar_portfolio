@@ -5,6 +5,12 @@ terraform {
       version = "~> 5.0"
     }
   }
+backend "s3" {
+    bucket       = "dilbarpun-tf-state"
+    key          = "dilbar-portfolio/terraform.tfstate"
+    region       = "ap-southeast-2"
+    use_lockfile = true
+  }
 }
 
 provider "aws" {
