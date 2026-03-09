@@ -50,28 +50,29 @@ The automated workflow performs the following steps:
 5. Website files are deployed to the S3 bucket
 6. Changes become live automatically
 
-            ┌───────────────────┐
-            │   S3 State Bucket │
-            │ *bucket*-tf-state│
-            │                   │
-            │ terraform.tfstate │
-            └─────────▲─────────┘
-                      │
-        ┌─────────────┴─────────────┐
-        │                           │
- device                      GitHub Actions
- terraform init              terraform init
- terraform apply             terraform plan
-        │                           │
-        └─────────────┬─────────────┘
-                      │
+```
+           ┌───────────────────┐
+           │   S3 State Bucket │
+           │ dilbarpun-tf-state│
+           │                   │
+           │ terraform.tfstate │
+           └─────────▲─────────┘
+                     │
+        ┌────────────┴────────────┐
+        │                         │
+   Developer Laptop        GitHub Actions
+   terraform apply         terraform plan
+        │                         │
+        └────────────┬────────────┘
+                     │
                 Reads SAME state
-
+```
 
 ---
 
-The Final Architecture of Your Project
+## The Final Architecture of Your Project
 
+```
 Developer
    │
    │ push code
@@ -102,7 +103,7 @@ CloudFront CDN
    │
    ▼
 Website Users
-
+```
 ---
 
 ## Security
