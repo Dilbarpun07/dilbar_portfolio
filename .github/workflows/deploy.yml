@@ -31,4 +31,10 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -input=false
+      
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id E2BL6G01SA9R7D --paths "/*"
