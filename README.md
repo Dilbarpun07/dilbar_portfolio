@@ -1,4 +1,4 @@
-# Dilbar Portfolio – CI/CD Deployment with AWS & Terraform
+# Portfolio – CI/CD Deployment with AWS & Terraform
 
 This project demonstrates a **production-ready CI/CD pipeline** used to deploy a static portfolio website to **AWS S3** using **Terraform and GitHub Actions**.
 
@@ -50,6 +50,59 @@ The automated workflow performs the following steps:
 5. Website files are deployed to the S3 bucket
 6. Changes become live automatically
 
+            ┌───────────────────┐
+            │   S3 State Bucket │
+            │ *bucket*-tf-state│
+            │                   │
+            │ terraform.tfstate │
+            └─────────▲─────────┘
+                      │
+        ┌─────────────┴─────────────┐
+        │                           │
+ device                      GitHub Actions
+ terraform init              terraform init
+ terraform apply             terraform plan
+        │                           │
+        └─────────────┬─────────────┘
+                      │
+                Reads SAME state
+
+
+---
+
+The Final Architecture of Your Project
+
+Developer
+   │
+   │ push code
+   ▼
+GitHub Repository
+   │
+   ▼
+GitHub Actions CI/CD
+   │
+   │ terraform init
+   │
+   ▼
+Terraform Backend (S3)
+*bucket*-tf-state
+   │
+   ▼
+Reads infrastructure state
+   │
+   ▼
+Terraform Apply
+   │
+   ▼
+AWS S3 Website Bucket
+*bucket*
+   │
+   ▼
+CloudFront CDN
+   │
+   ▼
+Website Users
+
 ---
 
 ## Security
@@ -66,7 +119,7 @@ This ensures credentials are never exposed in the repository.
 ## Project Structure
 
 ```
-dilbar_portfolio/
+*whatevername*_portfolio/
 │
 ├── terraform/          # Infrastructure as Code
 │   ├── main.tf
