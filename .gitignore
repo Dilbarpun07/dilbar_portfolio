@@ -14,3 +14,6 @@ crash.log
 # Variable files that may contain secrets
 *.tfvars
 *.tfvars.json
+
+#Project detail
+project_details.md
